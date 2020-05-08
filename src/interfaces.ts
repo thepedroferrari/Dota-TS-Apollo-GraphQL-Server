@@ -1,5 +1,5 @@
 export interface IEvent {
-  id: Number;
+  id: String;
   title: String;
   start: String;
   end: String;

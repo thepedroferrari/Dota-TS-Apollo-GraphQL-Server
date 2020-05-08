@@ -1,5 +1,5 @@
 type Event {
-  id: Int!
+  id: ID!
   title: String!
   start: String! # TODO: Create Scalar Date
   end: String! # TODO: Create Scalar Date
@@ -21,4 +21,5 @@ enum PhbStatus {
 
 type Query {
   events: [Event]
+  event(id: ID): Event
 }
