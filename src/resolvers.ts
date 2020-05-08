@@ -8,7 +8,7 @@ export const resolvers: IResolvers = {
       return mockData;
     },
     event: (obj, { id }: { id: string; }): IEvent | undefined => {
-      return mockData.find((event: IEvent) => event.id === id);
+      return mockData.find((event: IEvent) => event.id === Number(id));
     }
   }
 };
