@@ -1,16 +1,16 @@
 type Event {
   id: ID!
   title: String!
-  start: String! # TODO: Create Scalar Date
-  end: String! # TODO: Create Scalar Date
+  start: Date!
+  end: Date!
   tier: Int!
   bestOf: Int!
   tournament_id: Int!
   tournament_name: String!
   substage_id: Int!
-  deleted_at: String # TODO: Create Scalar Date | Null
+  deleted_at: Date
   pbp_status: PhbStatus!
-  postponed_from: String # TODO: Create Scalar Date | Null
+  postponed_from: Date
 }
 
 enum PhbStatus {
@@ -23,3 +23,5 @@ type Query {
   events: [Event]
   event(id: ID): Event
 }
+
+scalar Date
