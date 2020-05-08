@@ -14,6 +14,20 @@ export const mockData: IEvent[] = [
     "deleted_at": null,
     "pbp_status": "expected",
     "postponed_from": null,
+    "game": {
+      "id": 1,
+      "title": "Dota 2",
+      "default_match_type": "team",
+      "default_map": 100,
+      "color": "dc6450",
+      "long_title": "Dota 2",
+      "deleted_at": null,
+      "images": {
+        "square": "https://img.abiosgaming.com/games/dota-square-logo.png",
+        "circle": "https://img.abiosgaming.com/games/round-dota-logo.png",
+        "rectangle": "https://img.abiosgaming.com/games/flat-rectangular-Dota-logo.jpg"
+      }
+    },
   },
   {
     "id": 185053,
@@ -28,6 +42,20 @@ export const mockData: IEvent[] = [
     "deleted_at": null,
     "pbp_status": "possible",
     "postponed_from": null,
+    "game": {
+      "id": 1,
+      "title": "Dota 2",
+      "default_match_type": "team",
+      "default_map": 100,
+      "color": "dc6450",
+      "long_title": "Dota 2",
+      "deleted_at": null,
+      "images": {
+        "square": "https://img.abiosgaming.com/games/dota-square-logo.png",
+        "circle": "https://img.abiosgaming.com/games/round-dota-logo.png",
+        "rectangle": "https://img.abiosgaming.com/games/flat-rectangular-Dota-logo.jpg"
+      }
+    },
   },
   {
     "id": 182735,
@@ -42,5 +70,19 @@ export const mockData: IEvent[] = [
     "deleted_at": null,
     "pbp_status": "expected",
     "postponed_from": null,
+    "game": {
+      "id": 1,
+      "title": "Dota 2",
+      "default_match_type": "team",
+      "default_map": 100,
+      "color": "dc6450",
+      "long_title": "Dota 2",
+      "deleted_at": null,
+      "images": {
+        "square": "https://img.abiosgaming.com/games/dota-square-logo.png",
+        "circle": "https://img.abiosgaming.com/games/round-dota-logo.png",
+        "rectangle": "https://img.abiosgaming.com/games/flat-rectangular-Dota-logo.jpg"
+      }
+    },
   }
 ];

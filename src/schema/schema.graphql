@@ -11,6 +11,7 @@ type Event {
   deleted_at: Date
   pbp_status: PhbStatus!
   postponed_from: Date
+  game: Game
 }
 
 enum PhbStatus {
@@ -25,3 +26,20 @@ type Query {
 }
 
 scalar Date
+
+type Game {
+  id: Int!
+  title: String!
+  default_match_type: String!
+  default_map: Int!
+  color: String!
+  long_title: String!
+  deleted_at: String
+  images: GameImages!
+}
+
+type GameImages {
+  square: String!
+  circle: String!
+  rectangle: String!
+}
