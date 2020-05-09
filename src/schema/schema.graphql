@@ -31,6 +31,7 @@ enum PhbStatus {
 type Query {
   events: [Event]
   event(id: ID): Event
+  player(id: ID): Player
 }
 
 scalar Date
@@ -72,7 +73,7 @@ enum Part {
 }
 
 type Roster {
-  id: Int!
+  id: ID!
   dpc_points: Int!
   teams: [Team]
   players: [Player]
@@ -126,7 +127,7 @@ enum SocialMediaAccountSlug { facebook twitch twitter }
 type Player {
   nick_name: String!
   deleted_at: String
-  id: Int!
+  id: ID!
   active: Boolean!
   first_name: String
   last_name: String

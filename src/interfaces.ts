@@ -77,14 +77,18 @@ type offset = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
   110 | 111 | 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119 |
   120 | 121 | 122 | 123 | 124 | 125 | 126 | 127 | 128;
 
-interface IRoster {
+export interface IRoster {
   id: number;
   dpc_points: number;
   teams: ITeam[];
-  players: IPlayer[];
+  players: IPlayerId[];
 }
 
-interface ITeam {
+interface IPlayerId {
+  id: Number;
+}
+
+export interface ITeam {
   name: string;
   deleted_at: string | null;
   id: number;
@@ -132,7 +136,7 @@ interface ISocialMediaAccount {
 type SocialMediaAccountName = "Facebook" | "Twitch" | "Twitter";
 type SocialMediaAccountSlug = "facebook" | "twitch" | "twitter";
 
-interface IPlayer {
+export interface IPlayer {
   nick_name: string;
   deleted_at: string | null;
   id: number;
