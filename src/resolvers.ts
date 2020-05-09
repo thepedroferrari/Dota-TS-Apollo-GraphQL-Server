@@ -1,19 +1,24 @@
 import { GraphQLScalarType, Kind } from 'graphql';
 import { IResolvers } from 'graphql-tools';
 import { IEvent, IPlayer, IRoster } from './interfaces';
-import { mockData, players } from './mockData';
-
+import { mockData, playersData, teamsData } from './mockData';
 
 export const resolvers: IResolvers = {
   Query: {
-    events: (): IEvent[] => {
-      return mockData;
+    events: (obj, { limit }): IEvent[] => {
+      const filteredData = [...mockData];
+
+      if (limit) {
+        return filteredData.slice(0, limit);
+      }
+
+      return filteredData;
     },
     event: (obj, { id }: { id: string; }): IEvent | undefined => {
       return mockData.find((event: IEvent) => event.id === Number(id));
     },
     player: (obj, { id }): IPlayer | undefined => {
-      return players.find((player: IPlayer) => player.id === Number(id));
+      return playersData.find((player: IPlayer) => player.id === Number(id));
     }
   },
 
@@ -23,8 +28,11 @@ export const resolvers: IResolvers = {
       {
         ...roster,
         players: roster.players.map(rosterPlayer =>
-          players.find(player => player.id === rosterPlayer.id)
-        )
+          playersData.find(player => player.id === rosterPlayer.id)
+        ),
+        teams: roster.teams.map(rosterTeam =>
+          teamsData.find(team => team.id === rosterTeam.id)
+        ),
       }
     ))
   },
@@ -53,7 +61,7 @@ export const resolvers: IResolvers = {
 // const cleanEvents = [];
 // mockData.forEach(event => {
 //   const cleanRosters = event.rosters.map(roster => {
-//     const cleanPlayers = roster.players.map(player => player.id)
+//     const cleanPlayers = roster.players.map(player => ({id: player.id}))
 //     const cleanRoster = {
 //       ...roster,
 //       players: cleanPlayers
@@ -68,4 +76,12 @@ export const resolvers: IResolvers = {
 //   cleanEvents.push(cleanEvent)
 // })
 
-
+// const teamIds = [];
+// const teams = [];
+// mockData.forEach(event => event.rosters.forEach(roster => roster.teams.forEach(team => {
+//   if (!teamIds.includes(team.id)) {
+//     teamIds.push(team.id)
+//     teams.push(team)
+//   }
+// }
+// )))
