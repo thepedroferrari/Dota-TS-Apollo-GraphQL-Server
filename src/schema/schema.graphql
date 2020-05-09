@@ -82,7 +82,7 @@ type Roster {
 type Team {
   name: String!
   deleted_at: String
-  id: Int!
+  id: ID!
   short_name: String!
   images: TeamImages!
   active: Boolean!
