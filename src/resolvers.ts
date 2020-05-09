@@ -1,12 +1,13 @@
 import { GraphQLScalarType, Kind } from 'graphql';
 import { IResolvers } from 'graphql-tools';
+
+import { eventsData, playersData, rostersData, teamsData } from './data';
 import { IEvent, IPlayer, IRoster } from './interfaces';
-import { mockData, playersData, teamsData } from './mockData';
 
 export const resolvers: IResolvers = {
   Query: {
-    events: (obj, { limit }): IEvent[] => {
-      const filteredData = [...mockData];
+    events: (_, { limit }): IEvent[] => {
+      const filteredData = [...eventsData];
 
       if (limit) {
         return filteredData.slice(0, limit);
@@ -14,17 +15,18 @@ export const resolvers: IResolvers = {
 
       return filteredData;
     },
-    event: (obj, { id }: { id: string; }): IEvent | undefined => {
-      return mockData.find((event: IEvent) => event.id === Number(id));
+    event: (_, { id }: { id: string; }): IEvent | undefined => {
+      return eventsData.find((event: IEvent) => event.id === Number(id));
     },
-    player: (obj, { id }): IPlayer | undefined => {
+    player: (_, { id }): IPlayer | undefined => {
       return playersData.find((player: IPlayer) => player.id === Number(id));
     }
   },
 
   Event: {
-    rosters: (event) => event.rosters.map((roster: IRoster) => (
-      // Hidrating the players within the roster data
+    // Hidrating the Roster data within the event.
+    // Also hidrating the players and teams within the roster data
+    rosters: () => rostersData.map((roster: IRoster) => (
       {
         ...roster,
         players: roster.players.map(rosterPlayer =>
@@ -57,31 +59,3 @@ export const resolvers: IResolvers = {
     }
   })
 };
-
-// const cleanEvents = [];
-// mockData.forEach(event => {
-//   const cleanRosters = event.rosters.map(roster => {
-//     const cleanPlayers = roster.players.map(player => ({id: player.id}))
-//     const cleanRoster = {
-//       ...roster,
-//       players: cleanPlayers
-//     }
-//     return cleanRoster;
-//   })
-
-//   const cleanEvent = {
-//     ...event,
-//     rosters: cleanRosters
-//   };
-//   cleanEvents.push(cleanEvent)
-// })
-
-// const teamIds = [];
-// const teams = [];
-// mockData.forEach(event => event.rosters.forEach(roster => roster.teams.forEach(team => {
-//   if (!teamIds.includes(team.id)) {
-//     teamIds.push(team.id)
-//     teams.push(team)
-//   }
-// }
-// )))

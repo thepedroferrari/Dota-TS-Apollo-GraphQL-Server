@@ -19,7 +19,7 @@ export interface IEvent {
   point_system: null; // TODO: Figure this one out
   game: IGame;
   bracket_pos: IBraketPos | null;
-  rosters: IRoster[];
+  rosters: IRosterId[];
 }
 
 type PhbStatus = "expected" | "possible";
@@ -88,6 +88,9 @@ interface IPlayerId {
   id: Number;
 }
 interface ITeamId {
+  id: Number;
+}
+interface IRosterId {
   id: Number;
 }
 
