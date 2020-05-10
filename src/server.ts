@@ -7,8 +7,8 @@ import { createServer } from 'http';
 
 import schema from './schema';
 
-// Host port may vary, 3000 is my local default
-const PORT = process.env.PORT || 3000;
+// Host port may vary, 4001 is my local default
+const PORT = process.env.PORT || 4001;
 
 const app = express();
 
@@ -32,4 +32,4 @@ const httpServer = createServer(app);
 
 httpServer.listen(
   { port: PORT },
-  (): void => console.log(`\n🚀 GraphQL is now running on http://localhost:3000/graphql`));
+  (): void => console.log(`\n🚀 GraphQL is now running on http://localhost:4001/graphql`));

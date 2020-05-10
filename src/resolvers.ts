@@ -14,13 +14,13 @@ export const resolvers: IResolvers = {
 
     // Query for specific event
     event: (_, { id }: { id: number; }): IEvent | undefined => {
-      return eventsData.find((event: IEvent) => event.id === id);
+      return eventsData.find((event: IEvent) => event.id === Number(id));
     },
 
     // Query for specific player(s)
     player: (_, { id, nickname }: { id: number; nickname: string; }): IPlayer | IPlayer[] | undefined => {
       if (id) {
-        return playersData.find((player: IPlayer) => player.id === id);
+        return playersData.find((player: IPlayer) => player.id === Number(id));
       }
       if (nickname) {
         return playersData.filter((player: IPlayer) =>
@@ -33,10 +33,10 @@ export const resolvers: IResolvers = {
     },
 
     // Query for specific team(s)
-    team: (_, { id, name, shortName }): ITeam | ITeam[] | undefined => {
+    team: (_, { id, name, shortName }: { id: number, name: string, shortName: string; }): ITeam | ITeam[] | undefined => {
 
       if (id) {
-        return teamsData.find((team: ITeam) => team.id === id);
+        return teamsData.filter((team: ITeam) => team.id === id);
       }
       if (name) {
         return teamsData.filter((team: ITeam) =>
