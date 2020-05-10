@@ -46,7 +46,7 @@ type Game {
   default_map: Int!
   color: String!
   long_title: String!
-  deleted_at: String
+  deleted_at: Date
   images: GameImages!
 }
 
@@ -84,7 +84,7 @@ type Roster {
 
 type Team {
   name: String!
-  deleted_at: String
+  deleted_at: Date
   id: ID!
   short_name: String!
   images: TeamImages!
@@ -129,7 +129,7 @@ enum SocialMediaAccountSlug { facebook twitch twitter }
 
 type Player {
   nick_name: String!
-  deleted_at: String
+  deleted_at: Date
   id: ID!
   active: Boolean!
   first_name: String
@@ -149,8 +149,8 @@ type PlayerImages {
 
 type PlayerRole {
   name: String!
-  from: String!
-  to: String
+  from: Date!
+  to: Date
 }
 
 # missing 3 regions
