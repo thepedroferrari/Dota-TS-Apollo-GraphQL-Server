@@ -33,7 +33,7 @@ export const resolvers: IResolvers = {
     },
 
     // Query for specific team(s)
-    team: (_, { id, name, short_name }): ITeam | ITeam[] | undefined => {
+    team: (_, { id, name, shortName }): ITeam | ITeam[] | undefined => {
 
       if (id) {
         return teamsData.find((team: ITeam) => team.id === id);
@@ -43,9 +43,9 @@ export const resolvers: IResolvers = {
           team.name.toLowerCase().includes(name.toLowerCase())
         );
       }
-      if (short_name) {
+      if (shortName) {
         return teamsData.filter((team: ITeam) =>
-          team.short_name.toLowerCase().includes(short_name.toLowerCase())
+          team.short_name.toLowerCase().includes(shortName.toLowerCase())
         );
       }
     },
