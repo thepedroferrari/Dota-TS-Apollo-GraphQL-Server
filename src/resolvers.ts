@@ -2,25 +2,58 @@ import { GraphQLScalarType, Kind } from 'graphql';
 import { IResolvers } from 'graphql-tools';
 
 import { eventsData, playersData, rostersData, teamsData } from './data';
-import { IEvent, IPlayer, IRoster } from './interfaces';
+import { IEvent, IPlayer, IRoster, ITeam } from './interfaces';
 
 export const resolvers: IResolvers = {
   Query: {
-    events: (_, { limit }): IEvent[] => {
-      const filteredData = [...eventsData];
 
-      if (limit) {
-        return filteredData.slice(0, limit);
+    // query for all events
+    events: (_, { startAt = 0, limit = Infinity }): IEvent[] => {
+      return eventsData.slice(startAt, limit);
+    },
+
+    // Query for specific event
+    event: (_, { id }: { id: number; }): IEvent | undefined => {
+      return eventsData.find((event: IEvent) => event.id === id);
+    },
+
+    // Query for specific player(s)
+    player: (_, { id, nickname }: { id: number; nickname: string; }): IPlayer | IPlayer[] | undefined => {
+      if (id) {
+        return playersData.find((player: IPlayer) => player.id === id);
       }
+      if (nickname) {
+        return playersData.filter((player: IPlayer) =>
+          player.nick_name.toLowerCase().includes(nickname.toLowerCase())
+        );
+      }
+    },
+    players: (): IPlayer[] => {
+      return playersData;
+    },
 
-      return filteredData;
+    // Query for specific team(s)
+    team: (_, { id, name, short_name }): ITeam | ITeam[] | undefined => {
+
+      if (id) {
+        return teamsData.find((team: ITeam) => team.id === id);
+      }
+      if (name) {
+        return teamsData.filter((team: ITeam) =>
+          team.name.toLowerCase().includes(name.toLowerCase())
+        );
+      }
+      if (short_name) {
+        return teamsData.filter((team: ITeam) =>
+          team.short_name.toLowerCase().includes(short_name.toLowerCase())
+        );
+      }
     },
-    event: (_, { id }: { id: string; }): IEvent | undefined => {
-      return eventsData.find((event: IEvent) => event.id === Number(id));
+
+    // Query for all teams
+    teams: (): ITeam[] => {
+      return teamsData;
     },
-    player: (_, { id }): IPlayer | undefined => {
-      return playersData.find((player: IPlayer) => player.id === Number(id));
-    }
   },
 
   Event: {

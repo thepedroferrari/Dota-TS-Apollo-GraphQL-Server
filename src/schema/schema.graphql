@@ -31,7 +31,10 @@ enum PhbStatus {
 type Query {
   events(limit: Int): [Event]
   event(id: ID): Event
-  player(id: ID): Player
+  player(id: ID, nickname: String): [Player]
+  players: [Player]
+  team(id: ID, name: String, short_name: String): [Team]
+  teams: [Team]
 }
 
 scalar Date
