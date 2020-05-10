@@ -1,7 +1,7 @@
 import { GraphQLScalarType, Kind } from 'graphql';
 import { IResolvers } from 'graphql-tools';
 
-import { eventsData, playersData, rostersData, teamsData } from './data';
+import { eventsData, playersData, teamsData } from './data';
 import { IEvent, IPlayer, IRoster, ITeam } from './interfaces';
 
 export const resolvers: IResolvers = {
@@ -54,22 +54,6 @@ export const resolvers: IResolvers = {
     teams: (): ITeam[] => {
       return teamsData;
     },
-  },
-
-  Event: {
-    // Hidrating the Roster data within the event.
-    // Also hidrating the players and teams within the roster data
-    rosters: () => rostersData.map((roster: IRoster) => (
-      {
-        ...roster,
-        players: roster.players.map(rosterPlayer =>
-          playersData.find(player => player.id === rosterPlayer.id)
-        ),
-        teams: roster.teams.map(rosterTeam =>
-          teamsData.find(team => team.id === rosterTeam.id)
-        ),
-      }
-    ))
   },
 
   Date: new GraphQLScalarType({

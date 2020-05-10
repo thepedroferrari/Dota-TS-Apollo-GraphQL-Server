@@ -29,7 +29,7 @@ enum PhbStatus {
 }
 
 type Query {
-  events(limit: Int): [Event]
+  events(startAt: Int, limit: Int): [Event]
   event(id: ID): Event
   player(id: ID, nickname: String): [Player]
   players: [Player]

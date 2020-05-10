@@ -19,7 +19,7 @@ export interface IEvent {
   point_system: null; // TODO: Figure this one out
   game: IGame;
   bracket_pos: IBraketPos | null;
-  rosters: IRosterId[];
+  rosters: IRoster[];
 }
 
 type PhbStatus = "expected" | "possible";
@@ -80,18 +80,8 @@ type offset = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
 export interface IRoster {
   id: number;
   dpc_points: number;
-  teams: ITeamId[];
-  players: IPlayerId[];
-}
-
-interface IPlayerId {
-  id: Number;
-}
-interface ITeamId {
-  id: Number;
-}
-interface IRosterId {
-  id: Number;
+  teams: ITeam[];
+  players: IPlayer[];
 }
 
 export interface ITeam {
