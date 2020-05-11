@@ -35,7 +35,7 @@ export const resolvers: IResolvers = {
       });
 
       // and now we return a beautiful array of events that only contain events
-      // from our selected hoster
+      // from our selected roster
       return eventsWithRoster;
     },
 
