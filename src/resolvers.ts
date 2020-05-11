@@ -1,15 +1,42 @@
 import { GraphQLScalarType, Kind } from 'graphql';
 import { IResolvers } from 'graphql-tools';
 
-import { eventsData, playersData, teamsData } from './data';
+import { eventsData, playersData, rostersData, teamsData } from './data';
 import { IEvent, IPlayer, IRoster, ITeam } from './interfaces';
 
 export const resolvers: IResolvers = {
   Query: {
 
-    // query for all events
+    // query for all events with starting-from and limiter. Could be anything else.
     events: (_, { startAt = 0, limit = Infinity }): IEvent[] => {
       return eventsData.slice(startAt, limit);
+    },
+
+    // Return all events that has a Specific Roster ID
+    eventsByRoster: (_, { rosterID }: { rosterID: number; }): IEvent[] => {
+
+      // We declare an empty array we intend to return.
+      const eventsWithRoster: IEvent[] = [];
+
+      // We loop through all the data we got from the file, that in reality would
+      // be from a rest API, database or such
+      eventsData.forEach(event => {
+        // We know since we typed everything that every event will have a rosters
+        // array, so it is fine to loop through it
+        event.rosters.forEach(roster => {
+          // we check if this current roster, that belongs to an array of rosters
+          // that is inside of the event that is part of all selected events has
+          // the same ID that we passed to the query
+          if (roster.id === rosterID) {
+            // then we push the event to the array we want to return
+            eventsWithRoster.push(event);
+          }
+        });
+      });
+
+      // and now we return a beautiful array of events that
+      return eventsWithRoster;
+
     },
 
     // Query for specific event
@@ -54,6 +81,16 @@ export const resolvers: IResolvers = {
     teams: (): ITeam[] => {
       return teamsData;
     },
+
+    // Get a single Roster by their ID
+    roster: (_, { id }: { id: number; }): IRoster | undefined => {
+      return rostersData.find((roster) => roster.id === id);
+    },
+
+    // Query to get all rosters
+    rosters: (): IRoster[] => {
+      return rostersData;
+    }
   },
 
   Date: new GraphQLScalarType({
