@@ -34,9 +34,9 @@ export const resolvers: IResolvers = {
         });
       });
 
-      // and now we return a beautiful array of events that
+      // and now we return a beautiful array of events that only contain events
+      // from our selected hoster
       return eventsWithRoster;
-
     },
 
     // Query for specific event
