@@ -13,7 +13,7 @@ export const resolvers: IResolvers = {
     },
 
     // Return all events that has a Specific Roster ID
-    eventsByRoster: (_, { rosterID }: { rosterID: number; }): IEvent[] => {
+    eventsByRoster: (_, { rosterId }: { rosterId: number; }): IEvent[] => {
 
       // We declare an empty array we intend to return.
       const eventsWithRoster: IEvent[] = [];
@@ -27,7 +27,7 @@ export const resolvers: IResolvers = {
           // we check if this current roster, that belongs to an array of rosters
           // that is inside of the event that is part of all selected events has
           // the same ID that we passed to the query
-          if (roster.id === rosterID) {
+          if (roster.id === rosterId) {
             // then we push the event to the array we want to return
             eventsWithRoster.push(event);
           }
