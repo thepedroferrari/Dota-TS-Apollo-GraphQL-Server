@@ -32,7 +32,7 @@ type Query {
   event(id: Int): Event
   events(startAt: Int, limit: Int): [Event]
   eventsByRoster(rosterId: Int): [Event]
-  player(id: Int, nickname: String): [Player]
+  player(id: Int, nickname: String): Player
   players: [Player]
   team(id: Int, name: String, shortName: String): [Team]
   teams: [Team]
