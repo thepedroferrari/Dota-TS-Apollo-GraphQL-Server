@@ -44,23 +44,28 @@ export const resolvers: IResolvers = {
       return eventsData.find((event: IEvent) => event.id === Number(id));
     },
 
-    // Query for specific player(s)
-    player: (_, { id, nickname }: { id: number; nickname: string; }): IPlayer | IPlayer[] | undefined => {
+    // Query for specific player(s) that will return one single player
+    player: (_, { id }: { id: number; nickname: string; }): IPlayer | undefined => {
       if (id) {
         return playersData.find((player: IPlayer) => player.id === Number(id));
       }
+    },
+
+    // query by nickname that may return multiple players
+    playersByNickname: (_, { nickname }: { nickname: string; }): IPlayer[] | undefined => {
       if (nickname) {
         return playersData.filter((player: IPlayer) =>
           player.nick_name.toLowerCase().includes(nickname.toLowerCase())
         );
       }
     },
+    // return all players
     players: (): IPlayer[] => {
       return playersData;
     },
 
-    // Query for specific team(s)
-    team: (_, { id, name, shortName }: { id: number, name: string, shortName: string; }): ITeam | ITeam[] | undefined => {
+    // Query for specific team(s) that will always return an array
+    team: (_, { id, name, shortName }: { id: number, name: string, shortName: string; }): ITeam[] | undefined => {
 
       if (id) {
         return teamsData.filter((team: ITeam) => team.id === id);
