@@ -2,7 +2,7 @@ import { GraphQLScalarType, Kind } from 'graphql';
 import { IResolvers } from 'graphql-tools';
 
 import { eventsData, playersData, rostersData, teamsData } from './data';
-import { IEvent, IPlayer, IRoster, ITeam } from './interfaces';
+import { IEvent, IPlayer, IRoster, ITeam, IExtendedPlayer } from './interfaces';
 
 export const resolvers: IResolvers = {
   Query: {
@@ -60,9 +60,27 @@ export const resolvers: IResolvers = {
       }
     },
     // return all players
-    players: (): IPlayer[] => {
-      return playersData;
+    players: (): IExtendedPlayer[] => {
+      // We declare an empty array we intend to return.
+      const extendedPlayers: IExtendedPlayer[] = [];
+      // We loop through all the data we got from the file, that in reality would
+      // be from a rest API, database or such
+      eventsData.forEach(event => {
+        // We know since we typed everything that every event will have a rosters
+        // array, so it is fine to loop through it
+        event.rosters.forEach(roster => {
+          // Now we loop through each player in the team and hidrate it with
+          // the roster id, and then we push it to the array we created before.
+          roster.players.forEach(player => {
+            const extendedPlayer: IExtendedPlayer = { ...player, rosterId: roster.id };
+            extendedPlayers.push(extendedPlayer);
+          });
+        });
+      });
+
+      return extendedPlayers;
     },
+
 
     // Query for specific team(s) that will always return an array
     team: (_, { id, name, shortName }: { id: number, name: string, shortName: string; }): ITeam[] | undefined => {

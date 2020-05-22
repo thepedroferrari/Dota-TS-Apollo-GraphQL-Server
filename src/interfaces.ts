@@ -146,6 +146,10 @@ export interface IPlayer {
   social_media_accounts: ISocialMediaAccount[];
 }
 
+export interface IExtendedPlayer extends IPlayer {
+  rosterId: number;
+}
+
 interface IPlayerImages {
   default: string;
   thumbnail: string;

@@ -132,6 +132,7 @@ enum SocialMediaAccountName { Facebook Twitch Twitter }
 enum SocialMediaAccountSlug { facebook twitch twitter }
 
 type Player {
+  rosterId: Int!
   nick_name: String!
   deleted_at: Date
   id: ID!
