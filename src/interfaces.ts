@@ -148,6 +148,8 @@ export interface IPlayer {
 
 export interface IExtendedPlayer extends IPlayer {
   rosterId: number;
+  dpc_points: number;
+  team: ITeam;
 }
 
 interface IPlayerImages {

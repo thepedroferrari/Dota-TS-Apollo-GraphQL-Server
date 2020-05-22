@@ -133,6 +133,7 @@ enum SocialMediaAccountSlug { facebook twitch twitter }
 
 type Player {
   rosterId: Int!
+  dpc_points: Int!
   nick_name: String!
   deleted_at: Date
   id: ID!
@@ -144,6 +145,7 @@ type Player {
   country: Country!
   race: String
   social_media_accounts: [SocialMediaAccount]!
+  team: Team!
 }
 
 type PlayerImages {

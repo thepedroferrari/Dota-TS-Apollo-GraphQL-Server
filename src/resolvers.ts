@@ -60,7 +60,27 @@ export const resolvers: IResolvers = {
       }
     },
     // return all players
-    players: (): IExtendedPlayer[] => {
+    players: (): IPlayer[] => {
+      // We declare an empty array we intend to return.
+      const players: IPlayer[] = [];
+      // We loop through all the data we got from the file, that in reality would
+      // be from a rest API, database or such
+      eventsData.forEach(event => {
+        // We know since we typed everything that every event will have a rosters
+        // array, so it is fine to loop through it
+        event.rosters.forEach(roster => {
+          // Now we loop through each player in the team and push it to the arr
+          roster.players.forEach(player => {
+            players.push(player);
+          });
+        });
+      });
+
+      return players;
+    },
+
+    // return all players
+    extendedPlayers: (): IExtendedPlayer[] => {
       // We declare an empty array we intend to return.
       const extendedPlayers: IExtendedPlayer[] = [];
       // We loop through all the data we got from the file, that in reality would
@@ -72,7 +92,12 @@ export const resolvers: IResolvers = {
           // Now we loop through each player in the team and hidrate it with
           // the roster id, and then we push it to the array we created before.
           roster.players.forEach(player => {
-            const extendedPlayer: IExtendedPlayer = { ...player, rosterId: roster.id };
+            const extendedPlayer: IExtendedPlayer = {
+              ...player,
+              rosterId: roster.id,
+              dpc_points: roster.dpc_points,
+              team: roster.teams[0]
+            };
             extendedPlayers.push(extendedPlayer);
           });
         });
