@@ -71,6 +71,11 @@ export const resolvers: IResolvers = {
         event.rosters.forEach(roster => {
           // Now we loop through each player in the team and push it to the arr
           roster.players.forEach(player => {
+            // since the rosters repeat, we need to filter out players that we
+            // already added.
+            if (players.find(pl => pl.id === player.id)) {
+              return;
+            }
             players.push(player);
           });
         });
@@ -92,6 +97,12 @@ export const resolvers: IResolvers = {
           // Now we loop through each player in the team and hidrate it with
           // the roster id, and then we push it to the array we created before.
           roster.players.forEach(player => {
+            // since the rosters repeat, we need to filter out players that we
+            // already added.
+            if (extendedPlayers.find(e => e.id === player.id)) {
+              return;
+            }
+
             const extendedPlayer: IExtendedPlayer = {
               ...player,
               rosterId: roster.id,
